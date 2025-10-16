@@ -24,21 +24,22 @@ For detailed instructions, see the [Spotify Web API Getting Started Guide](https
 Copy the `.env.example` file to create your local environment configuration:
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
-Then edit `.env.local` with your Spotify credentials:
+Then edit `.env` with your Spotify credentials:
 
 ```bash
-# .env.local
+# .env
 SPOTIFY_CLIENT_ID=your_spotify_client_id_here
 SPOTIFY_REDIRECT_PORT=5173
 ```
 
-**Important**: 
+**Important**:
+
 - Replace `your_spotify_client_id_here` with your actual Spotify Client ID
 - The `SPOTIFY_REDIRECT_PORT` must match the port in your Spotify app's redirect URI
-- Never commit `.env.local` to version control (it's already in `.gitignore`)
+- Never commit `.env` to version control (it's already in `.gitignore`)
 
 ### 3. Install and Build
 
@@ -100,6 +101,7 @@ On first run, a browser will open for OAuth authentication. Tokens are stored se
 ### Quick Start Commands
 
 Once configured, you can use natural language commands like:
+
 - "Search for jazz albums"
 - "Play my liked songs playlist"
 - "Skip to the next track"
@@ -122,14 +124,17 @@ The MCP server provides the following Spotify integration tools:
 ### Common Issues
 
 1. **"Client ID not found" error**:
-   - Ensure your `.env.local` file exists and contains `SPOTIFY_CLIENT_ID`
+
+   - Ensure your `.env` file exists and contains `SPOTIFY_CLIENT_ID`
    - Verify the Client ID is correct (copy from Spotify Developer Dashboard)
 
 2. **"Redirect URI mismatch" error**:
-   - Check that `SPOTIFY_REDIRECT_PORT` in `.env.local` matches your Spotify app's redirect URI
+
+   - Check that `SPOTIFY_REDIRECT_PORT` in `.env` matches your Spotify app's redirect URI
    - The redirect URI should be `http://127.0.0.1:5173/callback` (replace 5173 with your port)
 
 3. **Authentication issues**:
+
    - Clear stored tokens: The tokens are stored in your OS keychain under `spotify-mcp`
    - On macOS: Use Keychain Access app to delete `spotify-mcp` entries
    - Try running the server again to re-authenticate
@@ -144,10 +149,3 @@ The MCP server provides the following Spotify integration tools:
 - Check the [Spotify Web API documentation](https://developer.spotify.com/documentation/web-api)
 - Review the [Model Context Protocol specification](https://modelcontextprotocol.io/)
 - Open an issue on the project repository for bugs or feature requests
-
-
-
-
-
-
-
