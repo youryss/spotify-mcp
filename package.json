@@ -1,0 +1,52 @@
+{
+  "name": "spotify-mcp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
+    "dev": "nodemon --watch src --exec tsx src/index.ts",
+    "start": "node dist/index.js",
+    "mcp": "NODE_TLS_REJECT_UNAUTHORIZED=0 tsx src/index.ts",
+    "prepare": "husky install",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.1",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "keytar": "^7.9.0",
+    "open": "^10.2.0",
+    "openid-client": "^6.8.0",
+    "undici": "^7.16.0",
+    "zod": "^3.25.76"
+  },
+  "mcp": {
+    "server": {
+      "command": "npm",
+      "args": "[\"run\",\"mcp\"]",
+      "env": "{\"SPOTIFY_CLIENT_ID\":\"${SPOTIFY_CLIENT_ID}\"}"
+    }
+  }
+}
