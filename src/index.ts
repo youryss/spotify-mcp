@@ -20,9 +20,13 @@ const envFilePath = (() => {
 })();
 
 if (existsSync(envFilePath)) {
+  // Suppress dotenv console output to avoid interfering with MCP stdio
+  const originalConsoleLog = console.log;
+  console.log = () => {};
   loadEnv({ path: envFilePath });
+  console.log = originalConsoleLog;
 } else if (process.env.SPOTIFY_MCP_ENV_FILE) {
-  console.warn(
+  console.error(
     `[ENV] Specified env file not found at ${envFilePath}. Proceeding with existing environment.`
   );
 }
@@ -30,6 +34,14 @@ if (existsSync(envFilePath)) {
 import { createServer } from "./mcp/server.js";
 
 async function main(): Promise<void> {
+  // Redirect console methods to stderr after imports but before server creation
+  // This prevents debug logs from interfering with MCP's JSON-RPC on stdout
+  const originalLog = console.log;
+  const originalWarn = console.warn;
+
+  console.log = (...args: any[]) => console.error(...args);
+  console.warn = (...args: any[]) => console.error(...args);
+
   const server = createServer();
   await server.start();
 }
